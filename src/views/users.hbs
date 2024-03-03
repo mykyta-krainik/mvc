@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Users</title>
+        <meta charset="utf-8">
+    </head>
+    <body style="display: flex; flex-direction: column; gap: 16px; margin: 20px 15px;">
+        <h1>Users</h1>
+
+        <section style="display: flex; flex-direction: column; gap: 8px;">
+            <h2>Add User</h2>
+
+            <form method="POST" action="/users">
+                <label for="name">Name</label>
+                <input type="text" name="username" id="name" />
+
+                <label for="age">Age</label>
+                <input type="number" min="1" max="100" name="age" id="age" />
+
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+
+        <section style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+            <h2>Users list</h2>
+
+            <ul
+                style="
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    width: 100%;
+                    list-style: none;
+                    padding: 0;
+                    box-sizing: border-box;
+                "
+            >
+                {{#each users}}
+                    <li
+                        style="
+                            box-sizing: border-box;
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            width: 100%;
+                            border: 1px solid green;
+                            padding: 15px;
+                            border-radius: 8px;
+                        "
+                    >
+                        <p>{{this.username}} - {{this.age}}</p>
+
+                        <button type="submit" onclick="handleUserRemove({{this.id}})">X</button>
+                    </li>
+                {{/each}}
+            </ul>
+        </section>
+
+        <script>
+            function handleUserRemove(id) {
+                fetch(`/users?id=${id}`, {
+                    method: 'DELETE'
+                }).then(() => {
+                    window.location.reload()
+                })
+            }
+        </script>
+    </body>
+</html>
