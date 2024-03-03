@@ -56,9 +56,8 @@ class UserViewConsole {
   async prompt_user_details() {
     const name = await rl.question("Enter name: ");
     const age = parseInt(await rl.question("Enter age: "), 10);
-    const occupation = await rl.question("Enter occupation: ");
 
-    return { name, age, occupation };
+    return { name, age };
   }
 }
 
